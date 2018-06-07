@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Form from './Form'
+import Form from './Form';
+import ShowProfile from './ShowProfile';
 
 class App extends Component {
   constructor(props) {
@@ -11,25 +12,21 @@ class App extends Component {
       user: '',
     }
 
-    // this.updateUser = this.updateUser.bind(this);
-    this.getUser = this.getUser.bind(this);
+    this.handleData = this.handleData.bind(this);
   }
 
-  // updateUser() {
-  //   this.setState
-  // }
-
-  getUser(event) {
-    event.preventDefault();
-    console.log(event);
+  handleData(data) {
+    this.setState({
+      user: data,
+    })
   }
-
 
   render() {
     return (
       <div className="App">
         <h1>Type your Github user :D</h1>
-        <Form getUserFromInput={this.getUser} />
+        <Form getUserFromInput={this.handleData} />
+        <ShowProfile passUser={this.state.user} />
       </div>
     );
   }

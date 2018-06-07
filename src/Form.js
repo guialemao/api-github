@@ -1,17 +1,37 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
+  constructor(props) {
+    super(props)
 
-  someFn = () => {
-    const teste = this.refs.userInput.value;
-    this.props.getUserFromInput(teste);
+    this.state = {
+      value: '',
+    }
+
+    this.handleChange = this.handleChange.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      value: event.target.value
+    })
+  }
+
+  submitHandler(evt) {
+    evt.preventDefault();
+    this.props.getUserFromInput(this.state.value);
+
+    this.setState({
+      value: '',
+    })
   }
 
   render() {
     return (
-      <form>
-        <input ref="userInput" type="text" onChange={this.props.getUserFromInput} />
-        <button>Search</button>
+      <form onSubmit={this.submitHandler}>
+        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <button type="submit">Search</button>
       </form>
     )
   }
