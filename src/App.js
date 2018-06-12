@@ -19,6 +19,24 @@ class App extends Component {
     this.setState({
       user: data,
     })
+
+    fetch(`https://api.github.com/users/${data}`)
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          ...this.state,
+          id: result.id,
+          avatar: result.avatar_url,
+          login: result.login,
+          name: result.name,
+          repos: result.repos_url,
+          public_repos: result.public_repos,
+          followers_url: result.followers_url,
+        })
+        console.log(result)
+      }
+    );
   }
 
   render() {
@@ -26,7 +44,7 @@ class App extends Component {
       <div className="App">
         <h1>Type your Github user :D</h1>
         <Form getUserFromInput={this.handleData} />
-        <ShowProfile passUser={this.state.user} />
+        <ShowProfile passUser={this.state} />
       </div>
     );
   }
