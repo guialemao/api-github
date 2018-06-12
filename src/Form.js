@@ -29,7 +29,12 @@ class Form extends Component {
 
   render() {
     return (
-      <form onSubmit={this.submitHandler}>
+      <form
+        onSubmit={this.submitHandler}
+        style={{
+          marginBottom: '20px',
+        }}
+      >
         <input type="text" value={this.state.value} onChange={this.handleChange} />
         <button type="submit">Search</button>
       </form>

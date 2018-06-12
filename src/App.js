@@ -30,11 +30,19 @@ class App extends Component {
           avatar: result.avatar_url,
           login: result.login,
           name: result.name,
-          repos: result.repos_url,
+          repos_url: result.repos_url,
           public_repos: result.public_repos,
+          followers: result.followers,
           followers_url: result.followers_url,
+          following: result.following,
+          following_url: result.following_url,
         })
-        console.log(result)
+      },
+      (error) => {
+        this.setState({
+          ...this.state,
+          error
+        })
       }
     );
   }
