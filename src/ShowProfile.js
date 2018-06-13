@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import ShowInfo from './ShowInfo';
+
 const Avatar = styled.div`
   border-radius: 50%;
   height: 80px;
@@ -20,13 +22,12 @@ const Avatar = styled.div`
   }
 `;
 
-const Link = styled.a`
+const ProfileInfo = styled.ul`
 color: red;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 50px;
-  text-decoration: none;
   &:first-child {
     margin-left: 0;
   }
@@ -68,18 +69,23 @@ class ShowProfile extends Component {
             justifyContent: 'center',
           }}
         >
-          <Link href={repos_url} target="_blank">
-            {public_repos}
-            <strong>repositories</strong>
-          </Link>
-          <Link href={followers_url} target="_blank">
-            {followers}
-            <strong>followers</strong>
-          </Link>
-          <Link href={following_url} target="_blank">
-            {following}
-            <strong>following</strong>
-          </Link>
+          <ProfileInfo href={repos_url} target="_blank">
+            <li url={repos_url}>
+              {public_repos}
+              <strong>repositories</strong>
+            </li>
+            <li url={followers_url}>
+              {followers}
+              <strong>followers</strong>
+            </li>
+            <li href={following_url}>
+              {following}
+              <strong>following</strong>
+            </li>
+          </ProfileInfo>
+        </div>
+        <div>
+          <ShowInfo user={login} />
         </div>
       </div>
     )
