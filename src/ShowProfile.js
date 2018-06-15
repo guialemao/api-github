@@ -23,10 +23,12 @@ const Avatar = styled.div`
 `;
 
 const ProfileInfo = styled.ul`
-color: red;
+  color: red;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  list-style-type: none;
   margin-left: 50px;
   &:first-child {
     margin-left: 0;
@@ -69,7 +71,7 @@ class ShowProfile extends Component {
             justifyContent: 'center',
           }}
         >
-          <ProfileInfo href={repos_url} target="_blank">
+          <ProfileInfo>
             <li url={repos_url}>
               {public_repos}
               <strong>repositories</strong>

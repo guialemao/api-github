@@ -20,7 +20,11 @@ class App extends Component {
       user: data,
     })
 
-    fetch(`https://api.github.com/users/${data}`)
+    fetch(`https://api.github.com/users/${data}`, {
+      headers: {
+        'Authorization': `Basic ${btoa('guialemao:de27d3e09e5f2ae14a46fc19e9150f10186b16dc')}`
+      }
+    })
     .then(res => res.json())
     .then(
       (result) => {
