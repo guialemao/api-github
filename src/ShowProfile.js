@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ShowInfo from './ShowInfo';
 
 const Avatar = styled.div`
+  border: 1px solid #ccc;
   border-radius: 50%;
   height: 80px;
   margin: 0 auto 20px auto;
@@ -33,13 +34,22 @@ const ProfileInfo = styled.ul`
   &:first-child {
     margin-left: 0;
   }
-
 `;
 
 class ShowProfile extends Component {
   render() {
-    const { name, login, avatar, followers_url, followers, following_url, following, repos_url, public_repos } = this.props.passUser;
-    
+    const {
+      name,
+      login,
+      avatar,
+      followers_url,
+      followers,
+      following_url,
+      following,
+      repos_url,
+      public_repos
+    } = this.props.passUser;
+
     return (
       <div
         style={{
@@ -72,15 +82,15 @@ class ShowProfile extends Component {
           }}
         >
           <ProfileInfo>
-            <li url={repos_url}>
+            <li>
               {public_repos}
               <strong>repositories</strong>
             </li>
-            <li url={followers_url}>
+            <li>
               {followers}
               <strong>followers</strong>
             </li>
-            <li href={following_url}>
+            <li>
               {following}
               <strong>following</strong>
             </li>

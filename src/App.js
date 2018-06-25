@@ -22,7 +22,7 @@ class App extends Component {
 
     fetch(`https://api.github.com/users/${data}`, {
       headers: {
-        'Authorization': `Basic ${btoa('guialemao:de27d3e09e5f2ae14a46fc19e9150f10186b16dc')}`
+        'Authorization': `Basic ${btoa('guialemao:3ddd12a642112c1bc461071e8d46d7a414c08851')}`
       }
     })
     .then(res => res.json())
@@ -56,7 +56,7 @@ class App extends Component {
       <div className="App">
         <h1>Type your Github user :D</h1>
         <Form getUserFromInput={this.handleData} />
-        <ShowProfile passUser={this.state} />
+        { this.state.user !== '' ? <ShowProfile passUser={this.state} /> : ''}
       </div>
     );
   }

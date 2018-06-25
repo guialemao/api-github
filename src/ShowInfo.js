@@ -4,7 +4,7 @@ class ShowInfo extends Component {
 
   render() {
     return(
-      <h1>Teste</h1>
+      <h1>{this.props.user}</h1>
     )
   }
 }
