@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 
+import styled from 'styled-components';
+
+const Input = styled.input`
+  border: 1px solid #ccc;
+  height: 40px;
+  margin-right: 10px;
+  padding: 0 15px;
+  width: 250px;
+`;
+
+const Button = styled.button`
+  background-color: transparent;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  height: 40px;
+`;
+
 class Form extends Component {
   constructor(props) {
     super(props)
@@ -35,8 +52,15 @@ class Form extends Component {
           marginBottom: '20px',
         }}
       >
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
-        <button type="submit">Search</button>
+        <h2
+          style={{
+            marginBottom: '15px',
+          }}
+        >
+          Type your Github login
+        </h2>
+        <Input type="text" value={this.state.value} onChange={this.handleChange} />
+        <Button type="submit">Search </Button>
       </form>
     )
   }

@@ -10,6 +10,7 @@ class App extends Component {
 
     this.state = {
       user: '',
+      userNotFound: false,
     }
 
     this.handleData = this.handleData.bind(this);
@@ -22,10 +23,18 @@ class App extends Component {
 
     fetch(`https://api.github.com/users/${data}`, {
       headers: {
-        'Authorization': `Basic ${btoa('guialemao:3ddd12a642112c1bc461071e8d46d7a414c08851')}`
+        'Authorization': `Basic ${btoa('guialemao:')}`
       }
     })
-    .then(res => res.json())
+    .then(
+      res => {
+        if(res.ok) {
+          return res.json();
+        } else {
+          throw Error('User not found!!!!!');
+        }
+      }
+    )
     .then(
       (result) => {
         this.setState({
@@ -40,12 +49,15 @@ class App extends Component {
           followers_url: result.followers_url,
           following: result.following,
           following_url: result.following_url,
+          userNotFound: false,
         })
-      },
-      (error) => {
+      }
+    )
+    .catch(
+      error => {
         this.setState({
-          ...this.state,
-          error
+          error,
+          userNotFound: true,
         })
       }
     );
@@ -53,8 +65,23 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Type your Github user :D</h1>
+      <div
+        className="App"
+        style={{
+          margin: '0 auto',
+          width: "960px",
+        }}
+      >
+        <h1
+          style={{
+            backgroundColor: '#24292e',
+            color: '#fff',
+            marginTop: '0',
+            padding: '20px 0',
+          }}
+        >
+          Integration with GitHub API
+          </h1>
         <Form getUserFromInput={this.handleData} />
         { this.state.user !== '' ? <ShowProfile passUser={this.state} /> : ''}
       </div>
