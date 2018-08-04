@@ -3,6 +3,7 @@ import './App.css';
 
 import Form from './Form';
 import ShowProfile from './ShowProfile';
+import { Wrapper } from './style';
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class App extends Component {
     )
     .then(
       (result) => {
+        console.log(result)
         this.setState({
           ...this.state,
           id: result.id,
@@ -65,26 +67,21 @@ class App extends Component {
 
   render() {
     return (
-      <div
-        className="App"
-        style={{
-          margin: '0 auto',
-          width: "960px",
-        }}
-      >
+      <Wrapper>
         <h1
           style={{
             backgroundColor: '#24292e',
             color: '#fff',
             marginTop: '0',
             padding: '20px 0',
+            textAlign: 'center',
           }}
         >
           Integration with GitHub API
           </h1>
         <Form getUserFromInput={this.handleData} />
         { this.state.user !== '' ? <ShowProfile passUser={this.state} /> : ''}
-      </div>
+      </Wrapper>
     );
   }
 }

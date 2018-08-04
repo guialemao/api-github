@@ -50,6 +50,7 @@ class Form extends Component {
         onSubmit={this.submitHandler}
         style={{
           marginBottom: '20px',
+          textAlign: 'center',
         }}
       >
         <h2

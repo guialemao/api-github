@@ -127,7 +127,6 @@ class ShowProfile extends Component {
   }
 
   render() {
-    console.log(this.state)
     const {
       name,
       login,
@@ -146,7 +145,7 @@ class ShowProfile extends Component {
         <div>
           <strong
             style={{
-              color: '#fff',
+              color: '#000',
               fontSize: '20px',
               fontStyle: 'italic',
               textShadow: '1px 1px 5px #f00',
@@ -169,6 +168,7 @@ class ShowProfile extends Component {
             style={{
               color: '#24292e',
               display: 'flex',
+              alignItems: 'center', 
               flexDirection: 'column',
               justifyContent: 'center',
               marginBottom: '50px',
@@ -193,7 +193,13 @@ class ShowProfile extends Component {
               </li>
             </ProfileInfo>
           </div>
-          <div>
+          <div
+            style={{
+              maxWidth: '500px',
+              margin: '0 auto',
+              width: '100%',
+            }}
+          >
             <ShowInfo template={this.state.template} />
           </div>
         </div>
