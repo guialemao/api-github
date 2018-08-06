@@ -5,6 +5,9 @@ In this repo I use the Github API to return users data and build a simple profil
 
 In the project directory, you can run:
 
+### Install
+After all, use npm i to install all project dependencies.
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
