@@ -3,6 +3,18 @@ import styled from 'styled-components';
 
 import ShowInfo from './ShowInfo';
 
+const ProfileInfo = styled.div`
+  margin: 0 auto 50px;
+  width: 300px;
+
+  p {
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    line-height: 120%;
+    padding: 10px;
+  }
+`;
+
 const Avatar = styled.div`
   border: 1px solid #ccc;
   border-radius: 50%;
@@ -23,7 +35,7 @@ const Avatar = styled.div`
   }
 `;
 
-const ProfileInfo = styled.ul`
+const UserListage = styled.ul`
   color: #24292e;
   cursor: pointer;
   display: flex;
@@ -43,8 +55,15 @@ const ProfileInfo = styled.ul`
       margin-left: 0;
     }
 
-    strong {
+    button {
+      background-color: #24292e;
+      border: 1px solid #24292e;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
       margin-left: 5px;
+      padding: 10px;
     }
   }
 `;
@@ -61,66 +80,28 @@ class ShowProfile extends Component {
     const getUrl = url;
     const urlFinal = getUrl.split('{');
 
-    fetch(urlFinal[0], {
-      headers: {
-        'Authorization': `Basic ${btoa('guialemao:')}`
-      }
-    })
+    fetch(urlFinal[0])
     .then(res => res.json())
     .then(
       (result) => {
-        if (urlFinal[0].split('/')[5] === 'repos') {
-          const repos = result.map(x => {
-            return (
-              <li key={x.id}>
-                <a href={x.html_url} target='_blank'>
-                  {x.full_name}
-                  <span
-                    style={{
-                      marginLeft: '10px',
-                    }}
-                  >
-                    &#10032; {x.stargazers_count}
-                  </span>
-                </a>
-              </li>
-            );
-          });
-          this.setState({
-            template: repos,
-          })
-        } else {
-          const userFriends = result.map(x => {
-            return (
-              <li key={x.id}>
-                <a href={x.html_url} target='_blank'>
-                  <Avatar
-                    style={{
-                      height: '50px',
-                      margin: '0',
-                      width: '50px',
-                    }}
-                  >
-                    <img src={x.avatar_url} alt=""/>
-                  </Avatar>
-                  <strong
-                    style={{
-                      marginLeft: '10px',
-                    }}
-                  >
-                    {x.login}
-                  </strong>
-                </a>
-              </li>
-            );
-          });
-          this.setState({
-            template: userFriends,
-          })
-        }
+        const repos = result.map(x => {
+          return (
+            <li key={x.id}>
+              <a href={x.html_url} target='_blank'>
+                <p>
+                  <strong>Description</strong>: {x.description === null ? 'No description' : x.description}
+                </p>
+                <p><strong>Name</strong>: {x.name}</p>
+                <p><strong>Owner</strong>: {x.owner.login}</p>
+              </a>
+            </li>
+          );
+        });
+        this.setState({
+          template: repos,
+        })
       }
     );
-
     this.setState({
       template: '',
     })
@@ -128,15 +109,21 @@ class ShowProfile extends Component {
 
   render() {
     const {
+      type,
       name,
       login,
       avatar,
-      followers_url,
-      followers,
-      following_url,
-      following,
+      bio,
+      blog,
+      email,
+      company,
+      location,
       repos_url,
+      starred_url,
+      public_gists,
       public_repos,
+      followers,
+      following,
       userNotFound
     } = this.props.passUser;
 
@@ -146,9 +133,9 @@ class ShowProfile extends Component {
           <strong
             style={{
               color: '#000',
+              display: 'block',
               fontSize: '20px',
-              fontStyle: 'italic',
-              textShadow: '1px 1px 5px #f00',
+              textAlign: 'center',
             }}
           >
             Ops, user not found :(
@@ -156,7 +143,6 @@ class ShowProfile extends Component {
         </div>  
       )
     } else {
-
       return (
         <div>
           <Avatar>
@@ -171,35 +157,35 @@ class ShowProfile extends Component {
               alignItems: 'center', 
               flexDirection: 'column',
               justifyContent: 'center',
-              marginBottom: '50px',
+              marginBottom: '20px',
               textDecoration: 'none',
             }}
           >
             <strong>{name ? name : ''}</strong> {login ? `(${login})` : ''}
           </a>
+          <ProfileInfo>
+            <p><strong>Type:</strong> {type}</p>
+            <p><strong>Company:</strong> {company}</p>
+            <p><strong>Blog:</strong> {blog}</p>
+            <p><strong>location:</strong> {location}</p>
+            <p><strong>Email:</strong> {email}</p>
+            <p><strong>Bio:</strong> {bio}</p>
+            <p><strong>Public Repos:</strong> {public_repos}</p>
+            <p><strong>Public Gists:</strong> {public_gists}</p>
+            <p><strong>Followers:</strong> {followers}</p>
+            <p><strong>Following:</strong> {following}</p>
+          </ProfileInfo>
           <div>
-            <ProfileInfo>
+            <UserListage>
               <li onClick={() => this.handleUrl(repos_url)}>
-                {public_repos}
-                <strong>repositories</strong>
+                <button type="button">repos</button>
               </li>
-              <li onClick={() => this.handleUrl(followers_url)}>
-                {followers}
-                <strong>followers</strong>
+              <li onClick={() => this.handleUrl(starred_url)}>
+                <button type="button">starred</button>
               </li>
-              <li onClick={() => this.handleUrl(following_url)}>
-                {following}
-                <strong>following</strong>
-              </li>
-            </ProfileInfo>
+            </UserListage>
           </div>
-          <div
-            style={{
-              maxWidth: '500px',
-              margin: '0 auto',
-              width: '100%',
-            }}
-          >
+          <div>
             <ShowInfo template={this.state.template} />
           </div>
         </div>

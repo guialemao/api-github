@@ -61,7 +61,7 @@ class Form extends Component {
           Type your Github login
         </h2>
         <Input type="text" value={this.state.value} onChange={this.handleChange} />
-        <Button type="submit">Search </Button>
+        <Button type="submit" disabled={this.state.value === '' ? true : false} >Search </Button>
       </form>
     )
   }

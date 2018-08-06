@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Form from './Form';
-import ShowProfile from './ShowProfile';
+import Form from './components/Form';
+import ShowProfile from './components/ShowProfile';
 import { Wrapper } from './style';
 
 class App extends Component {
@@ -22,11 +22,7 @@ class App extends Component {
       user: data,
     })
 
-    fetch(`https://api.github.com/users/${data}`, {
-      headers: {
-        'Authorization': `Basic ${btoa('guialemao:')}`
-      }
-    })
+    fetch(`https://api.github.com/users/${data}`)
     .then(
       res => {
         if(res.ok) {
@@ -38,19 +34,24 @@ class App extends Component {
     )
     .then(
       (result) => {
-        console.log(result)
         this.setState({
           ...this.state,
-          id: result.id,
-          avatar: result.avatar_url,
-          login: result.login,
+          type: result.type,
           name: result.name,
+          login: result.login,
+          avatar: result.avatar_url,
+          bio: result.bio,
+          blog: result.blog,
+          email: result.email,
+          company: result.company,
+          location: result.location,
           repos_url: result.repos_url,
+          starred_url: result.starred_url,
+          public_gists: result.public_gists,
           public_repos: result.public_repos,
           followers: result.followers,
-          followers_url: result.followers_url,
           following: result.following,
-          following_url: result.following_url,
+          error: false,
           userNotFound: false,
         })
       }
@@ -68,17 +69,19 @@ class App extends Component {
   render() {
     return (
       <Wrapper>
-        <h1
-          style={{
-            backgroundColor: '#24292e',
-            color: '#fff',
-            marginTop: '0',
-            padding: '20px 0',
-            textAlign: 'center',
-          }}
-        >
-          Integration with GitHub API
+        <header>
+          <h1
+            style={{
+              backgroundColor: '#24292e',
+              color: '#fff',
+              marginTop: '0',
+              padding: '20px 0',
+              textAlign: 'center',
+            }}
+          >
+            Integration with GitHub API
           </h1>
+        </header>
         <Form getUserFromInput={this.handleData} />
         { this.state.user !== '' ? <ShowProfile passUser={this.state} /> : ''}
       </Wrapper>
